@@ -44,6 +44,7 @@ seq_event = [
 ]
 
 #  Выводит только будущие события
-for item in filter(lambda object_dict: datetime.strptime(object_dict['date'], "%Y-%m-%d").date() > date.today(),
-                   seq_event):
-    print(item)
+if __name__ == '__main__':
+    for item in filter(lambda object_dict: datetime.strptime(object_dict['date'], "%Y-%m-%d").date() > date.today(),
+                       seq_event):
+        print(item)

@@ -2,6 +2,7 @@ import argparse
 
 
 def create_parser() -> argparse.ArgumentParser:
+    """Парсер аргументов для вывода структуры проекта"""
     parser = argparse.ArgumentParser(description="For struct work dir", add_help=True)
     parser.add_argument(
         '-a',

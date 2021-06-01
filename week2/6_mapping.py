@@ -47,7 +47,8 @@ seq = [
 #     "all_price": 330
 # }
 
-def seq_to_struct_dict(sub):
+def seq_to_struct_dict(sub: list) -> dict:
+    """Отображает последовательность в словарь"""
     result = {}
     if isinstance(sub, dict):
         if list(sub.keys()) == ['name', 'status']:

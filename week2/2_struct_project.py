@@ -42,3 +42,4 @@ def struct_proj(path: str) -> None:
 
 if __name__ == '__main__':
     struct_proj('C:/Users/kpech/PycharmProjects/testDigitalSpectr/course/')
+

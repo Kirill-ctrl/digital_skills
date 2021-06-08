@@ -16,6 +16,7 @@ class IteratorFibonacci:
         raise StopIteration
 
 
-f_iter_1 = IteratorFibonacci(100)
-for digit in f_iter_1:
-    print(digit)
+if __name__ == '__main__':
+    f_iter_1 = IteratorFibonacci(100)
+    for digit in f_iter_1:
+        print(digit)

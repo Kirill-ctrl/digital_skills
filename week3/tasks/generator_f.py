@@ -1,4 +1,5 @@
-def gen_fibonacci(limit, pr_digit=0, digit=1):
+def gen_fibonacci(limit: int, pr_digit: int = 0, digit: int = 1):
+    """Функция - генератор для чисел фибоначчи"""
     while limit > 0:
         pr_digit, digit = digit, pr_digit + digit
         limit -= 1

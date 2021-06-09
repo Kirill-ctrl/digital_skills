@@ -4,7 +4,8 @@ import time
 from typing import Optional
 
 
-def upload_log(data):
+def upload_log(data: str or dict) -> None:
+    """Загружает этапы выполнения функции в файл"""
     with open('/home/kirill/PycharmProjects/course_digital/week3/tasks/logs/log.txt', mode='a') as f:
         if isinstance(data, str):
             f.write(data + '\n')
@@ -15,7 +16,7 @@ def upload_log(data):
             raise TypeError
 
 
-def pack_dict(string: str):
+def pack_dict(string: str) -> dict:
     """
     Функция преобразует строку с разделителем в словарь. For check_token
     :param string: format-string со переданным параметром + datetime.now()

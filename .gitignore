@@ -132,3 +132,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# config files
+week4/task_req/work_github/config.py

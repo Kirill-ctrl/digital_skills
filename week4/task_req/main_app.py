@@ -1,3 +1,5 @@
+from task_req.work_github.github_api import GithubApi
+
 
 class MainApp:
 
@@ -12,6 +14,8 @@ class MainApp:
             '/documents': self.no_such_resource,
             '/hello_world': self.internal_server_err,
             '/path_info': self.redirect,
+            '/repos': self.github_info,
+            '/users': self.github_info
         }
 
     def route(self):
@@ -45,3 +49,8 @@ class MainApp:
     def other(self):
         self.start_response('301 Redirect', [('Content-Type', 'text/plain')])
         return [b'No content, it is sure']
+
+    def github_info(self):
+        response, ser_resp = GithubApi(self.environ).route()
+        self.start_response(str(response.status_code), [('Content-Type', response.headers.get('Content-Type'))])
+        return [bytes(ser_resp, 'utf-8')]

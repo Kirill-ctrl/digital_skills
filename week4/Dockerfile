@@ -1,13 +1,13 @@
 # pull official base image
-FROM python:3.8
+FROM python:3.9
 
 # set work directory
-WORKDIR /app
+WORKDIR /app/
 
 # install dependencies
-COPY requirements.txt ./
+COPY requirements.txt requirements.txt
 # --no-cache-dir
-RUN pip install  -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 

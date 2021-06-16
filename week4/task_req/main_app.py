@@ -47,7 +47,7 @@ class MainApp:
         return [b"All will be good, if only not 500"]
 
     def other(self):
-        self.start_response('301 Redirect', [('Content-Type', 'text/plain')])
+        self.start_response('204 No Content', [('Content-Type', 'text/plain')])
         return [b'No content, it is sure']
 
     def github_info(self):

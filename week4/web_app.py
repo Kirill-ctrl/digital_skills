@@ -1,5 +1,5 @@
+from task_req.main_app import MainApp
+
 
 def app(environ, start_response):
-    print(environ)
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return [b'Hello world12!\n']
+    return MainApp(environ, start_response).route()

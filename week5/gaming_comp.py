@@ -2,6 +2,7 @@ import inspect
 from typing import List
 
 from abc_class import Computer
+from exc_for_comp import AddElemCompException, CompTurnOnException
 
 
 class GamingComputer(Computer):
@@ -44,7 +45,7 @@ class GamingComputer(Computer):
             index_swap = self._graphics_card.index(old_card)
             self._graphics_card[index_swap] = new_card
         else:
-            print("Computer is already turn on")
+            raise CompTurnOnException("Computer is already turn on")
 
     def __str__(self):
         base = super().__str__()
@@ -58,7 +59,7 @@ class GamingComputer(Computer):
         if not self._switch_on and self.__divmod__(addit):
             self.__add__(value=addit)
         else:
-            print("Computer is already turn on")
+            raise CompTurnOnException("Computer is already turn on")
 
     def __divmod__(self, other):
         if divmod(other, 4)[1] == 0:
@@ -69,9 +70,9 @@ class GamingComputer(Computer):
             if self.__lt__(other):
                 self.__add__(card=other)
             else:
-                print("Cannot add video card")
+                raise AddElemCompException("Cannot add video card")
         else:
-            print("Computer is already turn on")
+            raise CompTurnOnException("Computer is already turn on")
 
     def __lt__(self, other: str):
         if len(self._graphics_card) < 2:
@@ -88,7 +89,7 @@ class GamingComputer(Computer):
         elif inspect.getouterframes(inspect.currentframe())[1].function == self.add_graphic_card.__name__:
             self._graphics_card.append(kwargs['card'])
         else:
-            print("Element to add is not defined")
+            raise AddElemCompException("Element to add is not defined")
 
 
 if __name__ == '__main__':
@@ -111,8 +112,34 @@ if __name__ == '__main__':
         ssd=True
     )
     print(gaming_comp_1)
+    # Собираем компьютер во включенном состоянии
+    try:
+        gaming_comp_2 = GamingComputer(
+            processor='intel',
+            block_power=700,
+            hdd=[{
+                "name": "toshiba",
+                "value": 1000
+            },
+                {
+                    "name": "samsung",
+                    "value": 1000,
+                }],
+            memory=32,
+            graphics_card=['GTX 1060', 'GTX 1080'],
+            cooling=True,
+            rgb='#ffffff',
+            ssd=True,
+            switch_on=True
+        )
+        print(gaming_comp_2)
+    except CompTurnOnException as exc:
+        print(exc.text_exc)
 
-    gaming_comp_1.add_graphic_card('GTX 1080')
-    gaming_comp_1.swap_graphics_card(old_card='GTX 1060', new_card='GTX 1080')
+    try:
+        gaming_comp_1.add_graphic_card('GTX 1080')
+    except AddElemCompException as exc:
+        print(exc.text_exc)
+        gaming_comp_1.swap_graphics_card(old_card='GTX 1060', new_card='GTX 1080')
 
     print(gaming_comp_1._graphics_card)

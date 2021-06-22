@@ -2,6 +2,7 @@ import inspect
 from typing import List
 
 from abc_class import Computer
+from exc_for_comp import AddElemCompException, CompTurnOnException
 
 
 class OfficeComputer(Computer):
@@ -33,7 +34,7 @@ class OfficeComputer(Computer):
         elif inspect.getouterframes(inspect.currentframe())[1].function == self.add_memory.__name__:
             self.memory += kwargs['value']
         else:
-            print("Element to add is not defined")
+            raise AddElemCompException("Element to add is not defined")
 
     @staticmethod
     def show_rgb():
@@ -44,9 +45,9 @@ class OfficeComputer(Computer):
             if self.__divmod__(addit):
                 self.__add__(value=addit)
             else:
-                print("You cannot add memory whose number does not correspond to a power of two")
+                raise DegreeTwoDivisionError("You cannot add memory whose number does not correspond to a power of two")
         else:
-            print("Computer is already turn on")
+            raise CompTurnOnException("Computer is already turn on")
 
 
 if __name__ == '__main__':
@@ -64,8 +65,30 @@ if __name__ == '__main__':
     )
     print(office_comp_1)
 
+    # собираем компьютер неправильно и обрабатываем ошибку
+    try:
+        office_comp_2 = OfficeComputer(
+            processor='intel',
+            block_power=650,
+            hdd=[
+                {
+                    "name": "toshiba",
+                    "value": 1000
+                }
+            ],
+            memory=16,
+            switch_on=True
+        )
+        print(office_comp_2)
+    except CompTurnOnException as exc:
+        print(exc.text_exc)
+
     office_comp_1.show_rgb()
     print(office_comp_1.memory)
-    office_comp_1.add_memory(15)
+    office_comp_1.add_memory(16)
+    try:
+        office_comp_1.__add__(memory=16)
+    except AddElemCompException as exc:
+        print(exc.text_exc)
 
     print(office_comp_1.memory)

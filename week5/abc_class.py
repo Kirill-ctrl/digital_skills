@@ -12,7 +12,9 @@ class Computer:
                  hdd: List[dict],
                  memory: int,
                  switch_on: bool = False):
-
+        """
+        Method-constructor
+        """
         self._processor = processor
         self._block_power = block_power
         self.hdd = hdd
@@ -24,9 +26,13 @@ class Computer:
         self.__hdd_value_common = sum([self.add_hdd(*item.values(), init=True) for item in self.hdd])
 
     def __call__(self, state: bool = True):
+        """
+        When the function is called, the computer turns on
+        """
         self._switch_on = state
 
     def __str__(self):
+        """Print base text by collected object"""
         return "I am Computer with processor: {proc}, memory: {memory} GB and {hdd} GB for hdd".format(
             proc=self._processor,
             memory=self.memory,
@@ -34,37 +40,52 @@ class Computer:
         )
 
     def __add__(self, *args, **kwargs):
-        """Определяет откуда вызов функции"""
+        """
+        Adds the passed parameter to a specific object.
+        Must be redefined in daughter classes if expanded functional to add
+        """
+        # Определяет откуда вызов функции
         if inspect.getouterframes(inspect.currentframe())[1].function == self.add_hdd.__name__:
             self.__hdd_value_common += self.hdd[-1]['value']
         else:
             raise AddElemCompException("Element to add is not defined")
 
     def __gt__(self, other: int):
+        """Check by power"""
         if self._block_power > other:
             print('I will not change')
+            return False
         else:
             self.__lt__(other)
 
     def __lt__(self, other: int):
+        """Check by power"""
         if self._block_power < other:
             print('I agree, new is better')
+            return True
 
     @property
     def hdd_value_common(self):
+        """For using in daughter classes"""
         return self.__hdd_value_common
 
     @hdd_value_common.setter
     def hdd_value_common(self, value: int):
+        """For using in daughter classes"""
         self.__hdd_value_common = value
 
     def turn_on(self):
+        """Turn on computer"""
         self._switch_on = True
 
     def turn_off(self):
+        """Turn off computer"""
         self._switch_on = False
 
     def swap_processor(self, new_processor: str):
+        """
+        Change the processor if the specified conditions are met
+        """
         if not self._switch_on:
             if isinstance(new_processor, str):
                 self._processor = new_processor
@@ -74,7 +95,10 @@ class Computer:
             raise CompTurnOnException("Computer is already turn on")
 
     def add_hdd(self, hdd_name: str, hdd_value: int, init: bool = False):
-        if init:
+        """
+        Adds dict in list[dict] for object Computer.hdd
+        """
+        if init:  # If called from __init__
             return hdd_value
         if not self._switch_on:
             self.hdd.append(
@@ -88,13 +112,14 @@ class Computer:
             raise CompTurnOnException("Computer is already turn on")
 
     def swap_block_power(self, block_power_value: int):
+        """
+        Change the block_power if the specified conditions are met
+        """
         if not self._switch_on:
-            self.__gt__(block_power_value)
+            if self.__gt__(block_power_value):
+                self._block_power = block_power_value
         else:
             raise CompTurnOnException("Computer is already turn on")
-
-    def show_all_hdd_value(self):
-        print(self.__hdd_value_common)
 
 
 if __name__ == '__main__':
@@ -140,7 +165,7 @@ if __name__ == '__main__':
     comp_1.add_hdd('samsung', 1000)
     comp_1.add_hdd('samsung', 120)
     print(comp_1)
-    comp_1.show_all_hdd_value()
+    print(comp_1.hdd_value_common)
     comp_1()
     try:
         comp_1.swap_block_power(700)

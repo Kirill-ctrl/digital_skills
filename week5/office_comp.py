@@ -2,7 +2,7 @@ import inspect
 from typing import List
 
 from abc_class import Computer
-from exc_for_comp import AddElemCompException, CompTurnOnException
+from exc_for_comp import AddElemCompException, CompTurnOnException, DegreeDivisionError
 
 
 class OfficeComputer(Computer):
@@ -12,6 +12,9 @@ class OfficeComputer(Computer):
                  hdd: List[dict],
                  memory: int,
                  switch_on: bool = False):
+        """
+        Method-constructor for daughter class with using super()
+        """
         super().__init__(processor=processor,
                          block_power=block_power,
                          hdd=hdd,
@@ -19,15 +22,20 @@ class OfficeComputer(Computer):
                          switch_on=switch_on)
 
     def __str__(self):
+        """Base str method"""
         return "I am simple office computer!"
 
     def __divmod__(self, other):
+        """Check by add memory"""
         if divmod(other, 2)[1] == 0:
             return True
         return False
 
     def __add__(self, *args, **kwargs):
-        """Определяет откуда вызов функции"""
+        """
+        Overridden method with expanded functional
+        """
+        #  Определяет откуда вызов функции
         if inspect.getouterframes(inspect.currentframe())[1].function == self.add_hdd.__name__:
             value = self.hdd_value_common + self.hdd[-1]['value']
             self.hdd_value_common = value
@@ -41,11 +49,14 @@ class OfficeComputer(Computer):
         print('No, i will broken')
 
     def add_memory(self, addit: int):
+        """
+        Add memory by check addit value is divisible by 2
+        """
         if not self._switch_on:
             if self.__divmod__(addit):
                 self.__add__(value=addit)
             else:
-                raise DegreeTwoDivisionError("You cannot add memory whose number does not correspond to a power of two")
+                raise DegreeDivisionError("You cannot add memory whose number does not correspond to a power of two")
         else:
             raise CompTurnOnException("Computer is already turn on")
 

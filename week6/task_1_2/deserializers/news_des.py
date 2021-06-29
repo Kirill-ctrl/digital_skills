@@ -1,12 +1,12 @@
 import json
 
-from lxml import objectify
 from zope.interface import implementer
 
-from course.week6.task_1_2.deserializers.account_des import AccountDeserializer
 from course.week6.task_1_2.deserializers.base_des import BaseDeserializer
 from course.week6.task_1_2.formats import FORMAT_JSON, FORMAT_XML, FORMAT_HTML
 from course.week6.task_1_2.models.news import News
+
+from bs4 import BeautifulSoup
 
 
 @implementer(BaseDeserializer)
@@ -36,7 +36,6 @@ class NewsDeserializer:
     @staticmethod
     def des_from_xml(xml_obj):
         title = description = author = created_at = None
-        from bs4 import BeautifulSoup
         soup = BeautifulSoup(xml_obj, 'xml')
         for item in soup.main.find_all('news'):
             print(item['attr'])
@@ -57,7 +56,7 @@ class NewsDeserializer:
 
     @staticmethod
     def des_from_html(html_obj):
-        from bs4 import BeautifulSoup
+        title = description = author = created_at = None
         soup = BeautifulSoup(html_obj, 'html.parser')
         x = soup.body.find('div', attrs={'class': 'container'})
         for div in x.find_all('div'):

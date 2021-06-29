@@ -6,6 +6,8 @@ from course.week6.task_1_2.deserializers.base_des import BaseDeserializer
 from course.week6.task_1_2.formats import FORMAT_JSON, FORMAT_XML, FORMAT_HTML
 from course.week6.task_1_2.models.account import Account
 
+from bs4 import BeautifulSoup
+
 
 @implementer(BaseDeserializer)
 class AccountDeserializer:
@@ -33,7 +35,7 @@ class AccountDeserializer:
 
     @staticmethod
     def des_from_xml(xml_obj):
-        from bs4 import BeautifulSoup
+        id = name = surname = email = None
         soup = BeautifulSoup(xml_obj, 'xml')
         for item in soup.main.find_all('account'):
             if item['attr'] == 'id':
@@ -53,7 +55,7 @@ class AccountDeserializer:
 
     @staticmethod
     def des_from_html(html_obj):
-        from bs4 import BeautifulSoup
+        id = name = surname = email = None
         soup = BeautifulSoup(html_obj, 'html.parser')
         x = soup.body.find('div', attrs={'class': 'container'})
         for div in x.find_all('div'):

@@ -90,7 +90,6 @@ if __name__ == '__main__':
     account_to_html = AccountF().serialize_to_html(account_from_html)
     account_to_xml = AccountF().serialize_to_xml(account_from_xml)
     account_to_json = AccountF().serialize_to_json(account_from_json)
-    print(account_to_html, HTML_OBJECT_ACCOUNT)
 
     assert account_to_html == HTML_OBJECT_ACCOUNT
     assert account_to_xml == XML_OBJECT_ACCOUNT

@@ -6,7 +6,7 @@ from course.week6.task_1_2.deserializers.news_des import NewsDeserializer
 from course.week6.task_1_2.formats import FORMAT_JSON, FORMAT_XML, FORMAT_HTML
 
 from course.week6.task_1_2.models.news import News
-from course.week6.task_1_2.seializers.news_ser import NewsSerializer
+from course.week6.task_1_2.serializers.news_ser import NewsSerializer
 from course.week6.task_1_2.services.base import BaseF
 
 

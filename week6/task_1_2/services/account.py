@@ -5,7 +5,7 @@ import xml
 from course.week6.task_1_2.deserializers.account_des import AccountDeserializer
 from course.week6.task_1_2.formats import FORMAT_JSON, FORMAT_XML, FORMAT_HTML
 from course.week6.task_1_2.models.account import Account
-from course.week6.task_1_2.seializers.account_ser import AccountSerializer
+from course.week6.task_1_2.serializers.account_ser import AccountSerializer
 from course.week6.task_1_2.services.base import BaseF
 
 

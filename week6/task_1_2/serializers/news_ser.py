@@ -4,7 +4,7 @@ from zope.interface import implementer
 
 from course.week6.task_1_2.formats import FORMAT_JSON, FORMAT_HTML, FORMAT_XML
 from course.week6.task_1_2.models.news import News
-from course.week6.task_1_2.seializers.base_ser import BaseSerializer
+from course.week6.task_1_2.serializers.base_ser import BaseSerializer
 
 
 @implementer(BaseSerializer)

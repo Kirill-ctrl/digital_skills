@@ -2,7 +2,7 @@ from zope.interface import implementer
 
 from course.week6.task_1_2.formats import FORMAT_JSON, FORMAT_XML, FORMAT_HTML
 from course.week6.task_1_2.models.account import Account
-from course.week6.task_1_2.seializers.base_ser import BaseSerializer
+from course.week6.task_1_2.serializers.base_ser import BaseSerializer
 
 
 @implementer(BaseSerializer)
@@ -41,7 +41,6 @@ class AccountSerializer:
 
     @staticmethod
     def ser_to_html(account: Account):
-        print(account.email)
         return f"""
 <html>
 <head>Heading</head>

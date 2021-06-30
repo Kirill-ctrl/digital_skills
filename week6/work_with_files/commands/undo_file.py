@@ -1,9 +1,10 @@
 import logging
+import os
 
 from zope.interface import implementer
 
 from course.week6.work_with_files.commands.base_interface import BaseWorkFiles
-from course.week6.work_with_files.commands.commands import UNDO
+from course.week6.work_with_files.commands.commands import UNDO, APPEND, WRITE, DELETE, CREATE
 from course.week6.work_with_files.commands.history_file import HistoryFileCommand
 
 
@@ -28,7 +29,7 @@ class UndoFileCommand:
         data_for_undo = trash['kwargs']['data']
         file = trash['file_path']
         process = trash['process_type']
-        if process == "APPEND" or process == "WRITE":
+        if process == APPEND or process == WRITE:
             with open(file, 'r') as f:
                 data = f.read()
             if data_for_undo in data:
@@ -37,6 +38,21 @@ class UndoFileCommand:
                 data = '\n'.join(data)
             with open(file, 'w') as f:
                 f.write(data)
+        elif process == CREATE:
+            if not os.access(file, os.F_OK):
+                os.remove(file)
+                logging.info('File delete')
+                return file
+            logging.warning('File already delete')
+            return None
+        elif process == DELETE:
+            if not os.access(file, os.F_OK):
+                with open(file, 'w+') as f:
+                    pass
+                logging.info('File create')
+                return file
+            logging.warning('File already create')
+            return None
         else:
             logging.error("Family process is undefined")
             raise NotImplementedError

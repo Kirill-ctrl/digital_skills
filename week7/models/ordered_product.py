@@ -1,0 +1,16 @@
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
+from course.week7.models.base import Base
+
+
+class OrderedProduct(Base):
+    __tablename__ = "ordered_product"
+
+    _id = Column(Integer, nullable=False, primary_key=True)
+    product_id = Column(Integer, ForeignKey("product.id"))
+    ec_order_id = Column(Integer, ForeignKey("ec_order.id"))
+    quantity = Column(Integer, nullable=False)
+
+    product = relationship("Product", back_populates="ordered_product")
+    ec_order = relationship("ECOrder", back_populates="ordered_product")

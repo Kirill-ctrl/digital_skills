@@ -11,10 +11,17 @@ class ShoppingCart(Base):
         "recruited", "ready"
     )
 
-    account_id = Column(Integer, ForeignKey("account.id"))
-    product_id = Column(Integer, ForeignKey("product.id"))
-    quantity_product = Column(Integer, nullable=False)
+    def __init__(self,
+                 _id: int = None,
+                 account_id: int = None,
+                 status_cart: str = None):
+        self._id = _id
+        self.account_id = account_id
+        self.status_cart = status_cart
+
+    _id = Column(Integer, primary_key=True)
+    account_id = Column(Integer, ForeignKey("account._id"))
     status_cart = Column(String, default=STATUSES_CART[0])
 
-    account = relationship("Account", back_populates="shopping_cart")
-    product = relationship("Product", back_populates="shopping_cart")
+    account = relationship("Account", foreign_keys=[account_id])
+    # cart_product = relationship("ShoppingCart")

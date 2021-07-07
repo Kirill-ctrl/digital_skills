@@ -1,8 +1,6 @@
 import hashlib
-import os
 
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 
 from course.week7.models.base import Base
 
@@ -11,10 +9,12 @@ class Account(Base):
     __tablename__ = "account"
 
     def __init__(self,
+                 _id: int = None,
                  name: str = None,
                  email: str = None,
                  password: str = None,
                  hash_password: str = None):
+        self._id = _id
         self.name = name
         self.email = email
         self.password = password
@@ -25,8 +25,8 @@ class Account(Base):
     email = Column(String, unique=True, nullable=False)
     hash_password = Column(String, nullable=False)
 
-    ec_order = relationship("ECOrder", back_populates="account")
-    shopping_cart = relationship("ShoppingCart", back_populates='account')
+    # ec_order = relationship("ECOrder", back_populates="account")
+    # shopping_cart = relationship("ShoppingCart", back_populates='account')
 
     def __repr__(self):
         return F"Account({self.name}, {self.email})"

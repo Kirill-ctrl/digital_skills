@@ -9,6 +9,7 @@ class EngineConn:
     @classmethod
     def set_engine(cls, database: str) -> None:
         cls.engine = create_engine(f'sqlite:///{database}.db', echo=True)
+        return cls.engine
 
     @classmethod
     def get_engine(cls) -> Engine:

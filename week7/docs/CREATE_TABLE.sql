@@ -45,7 +45,13 @@ CREATE TABLE ordered_product (
 
 CREATE TABLE shopping_cart (
     account_id INTEGER NOT NULL REFERENCES account(id) ON DELETE CASCADE,
-    product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
-    quantity_product INTEGER,
     status_cart TEXT
 );
+
+-- ----------------------------------------------------------------
+
+CREATE TABLE cart_product (
+    shopping_cart_id INTEGER NOT NULL REFERENCES shopping_cart(id) ON DELETE CASCADE,
+    product_id INTEGER NOT NULL REFERENCES product(id) ON DELETE CASCADE,
+    quantity_product INTEGER
+)

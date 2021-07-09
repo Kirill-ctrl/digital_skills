@@ -19,10 +19,10 @@ class ECOrder(Base):
 
     _id = Column(Integer, primary_key=True)
     number = Column(Integer, nullable=False, unique=True)
-    account_id = Column(Integer, ForeignKey('account.id'))
+    account_id = Column(Integer, ForeignKey('account._id'))
     status = Column(String, nullable=False)
 
-    account = relationship("Account", back_populates="ec_order")
+    account = relationship("Account")
     ordered_product = relationship("OrderedProduct", back_populates='ec_order')
 
     def __repr__(self):

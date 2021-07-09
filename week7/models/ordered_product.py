@@ -18,9 +18,9 @@ class OrderedProduct(Base):
         self.quantity = quantity
 
     _id = Column(Integer, nullable=False, primary_key=True)
-    product_id = Column(Integer, ForeignKey("product.id"))
-    ec_order_id = Column(Integer, ForeignKey("ec_order.id"))
+    product_id = Column(Integer, ForeignKey("product._id"))
+    ec_order_id = Column(Integer, ForeignKey("ec_order._id"))
     quantity = Column(Integer, nullable=False)
 
-    product = relationship("Product", back_populates="ordered_product")
+    product = relationship("Product")
     ec_order = relationship("ECOrder", back_populates="ordered_product")

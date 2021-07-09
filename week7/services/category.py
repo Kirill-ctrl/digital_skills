@@ -6,8 +6,8 @@ class CategoryService:
 
     @staticmethod
     def get_list_category():
-        sess = SessionConn.get_session()
-        res = sess.query(Category).all()
+        with SessionConn.get_session() as sess:
+            res = sess.query(Category).all()
         return [
             {
                 "id": item._id,
@@ -18,7 +18,9 @@ class CategoryService:
 
     @staticmethod
     def get_category_by_id(category_id: int):
-        sess = SessionConn.get_session()
-        res = sess.query(Category).filter(Category._id == category_id).first()
-        sess.close()
-        return res
+        with SessionConn.get_session() as sess:
+            res = sess.query(Category).filter(Category._id == category_id).first()
+        return {
+            "id": res._id,
+            "title": res.title
+        }

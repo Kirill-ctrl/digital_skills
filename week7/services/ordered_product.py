@@ -5,8 +5,6 @@ from sqlalchemy import insert
 from course.week7.models.cart_product import CartProduct
 from course.week7.models.ec_order import ECOrder
 from course.week7.models.ordered_product import OrderedProduct
-from course.week7.models.product import Product
-from course.week7.models.shopping_cart import ShoppingCart
 
 
 class OrderedProductService:

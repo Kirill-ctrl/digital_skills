@@ -136,3 +136,7 @@ dmypy.json
 
 # config files
 week4/task_req/work_github/config.py
+.idea/
+__pycache__/
+env/
+load_env.py

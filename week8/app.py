@@ -1,4 +1,4 @@
-from portfolio.bootstrap.bootstrap import init_all
+from course.week8.portfolio.bootstrap.bootstrap import init_all
 
 
 def main():
